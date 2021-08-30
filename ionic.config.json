@@ -1,5 +1,7 @@
 {
   "name": "pickup-driver",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

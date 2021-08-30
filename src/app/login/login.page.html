@@ -1,0 +1,48 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="back()"> {{"HOME"|translate}}
+        <ion-icon name="home" clot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <form [formGroup]="emailLoginForm">
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-margin-top ion-margin-bottom">
+        <ion-title>{{"LOG_IN"|translate}}</ion-title>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-margin-top">
+          <div class="div1">
+            <ion-input placeholder="Enter your email address" type="email" formControlName="username"></ion-input>
+          </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-margin-bottom">
+        <div class="div1">
+          <ion-input placeholder="Enter your passwword" type="password" formControlName="password"></ion-input>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" fill="outline" color="dark" shape="round" strong="true" id="emailbtn"
+          (click)="loginAction()"> {{"LOGIN"|translate}}
+          <ion-icon name="mail-outline" slot="end"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="12" class="ion-text-center">
+        <ion-button color="danger" fill="clear">{{"FORGET_PASSWORD"|translate}}</ion-button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</form>
+</ion-content>

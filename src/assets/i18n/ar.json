@@ -1,0 +1,67 @@
+{
+  "LOGIN": "تسجيل دخول",
+  "SETTINGS": "إعدادات",
+  "EMAIL": "البريد الاكتروني",
+  "MY_ORDERS":"طلباتي",
+  "LANGUAGE":"اللغة",
+  "BEGIN_ORDER":"إبدا الطلب",
+  "MOVABLES_DETAILS":"بيانات المنقولات",
+  "LOCATION":"الموقع",
+  "BACK":"السابق",
+  "NEXT":"التالي",
+  "MOVE_FROM":"الإنتقال من",
+  "MOVE_TO":"الانتقال الى",
+  "SOURCE_LOCATION":"عنوان المكان الذى سيتم النقل منه",
+  "DESTINATION_LOCATION":"عنوان المكان الذي سيتم النقل اليه",
+  "MOVABLES_IMAGES":"صور المنقولات",
+  "SOURCE_LOCATION_DATA":"بيانات المكان المنقول منه",
+  "PLACE_TYPE":"نوع المكان",
+  "FLOOR_NUMBER":"رقم الطابق",
+  "THERE_IS_ELV":"يوجد مصعد",
+  "LOG_OUT":"خروج",
+  "ABOUT_APP": "عن التطبيق",
+  "COMPLAINS":"شكاوي",
+  "USER_PROFILE":"الملف الشخصي",
+  "START_MENU":"القائمة",
+  "EXECUTE":"تنفيذ",
+  "CANCEL":"إلغاء",
+  "OPEN_ORDERS":"طلبات قيد لتنفيذ",
+  "CLOSED_ORDERS":"طلبات مغلقة",
+  "PICK_UP_ORDER":"طلب نقل",
+  "LOG_IN":"تسجيل دخول",
+  "FACEBOOK":"من خلال فيسبوك",
+  "OR":"أو",
+  "MY_PROFILE":"الملف الشخصي",
+  "CREATE_ACCOUNT":"إنشاء حساب",
+  "VISITOR":"ذائر",
+  "SIGN_UP":"إنشاء حســـاب",
+  "SIGN_UP_WITH_FB":"إنشاء حساب باستخدام فيسبوك",
+  "SIGN_UP_WITH_EMAIL":"إنشاء حساب باستخدام البريد الاكتروني",
+  "FORGET_PASSWORD":"نسيت كلمة السر",
+  "ESTEMATED_COST":"التكلفة التقديرية",
+  "REQUEST_DATE":"تاريح الطلب",
+  "REQUEST_TIME":"الوقت ",
+  "REQUEST_STATUS":"حالة الطلب",
+  "ORDER_DETAILS":"تفاصيل الطلب",
+  "DESTINATION_LOCATION_DATA":"المكان المنقول اليه",
+  "MOVABLE_DESC":"وصف مختصر للمنقولات",
+  "THERE_IS_NO_ELV":"لا يوجد مصعد",
+  "ARABIC_FULL_NAME":"الاسم كاملا بالعربي",
+  "ENGLISH_FULL_NAME":"الاسم كاملا انجليزي",
+  "PHONE":"رقم الهاتف",
+  "SAVE":"حفظ",
+  "HOME":"الرئيسية",
+  "REQUESTS":"طلبات",
+  "MY_TASKS":"مهماتي"
+
+
+
+  ,"ERROR_CANNOT_POST_REQUEST":"خطأ: لم بتمكن النظام من تمرير طلبك"
+  ,"REQUEST_POSTED":"تم ارسال طلبك لكل شركات وسائقى النقل .سيتم تنبيهك حال قبول طلبك."
+  ,"REQUEST_CANCELED":"تم إلغاء الطلب "
+  ,"ENABLE_LOCATION_ACCESS":"يجب منح التطبيق صلاحية الاتصال بالموقع الجغرافي اولا"
+  ,"USER_CREATED":"تم إرسال كلمة السر الخاصة بك الى بريدك الاكتروني.يجب تغيرها بعد الدخول للتطبيق"
+  ,"GET_CURRENT_LOCATION":"الموقع الحالي"
+  ,"PICK_FROM_MAP":"اختر من الخريطة"
+  ,"PLEASE_CHHOSE_LOCATION":"حدد الموقع"
+}

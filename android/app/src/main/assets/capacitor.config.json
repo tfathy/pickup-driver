@@ -1,0 +1,6 @@
+{
+	"appId": "net.driver.pickupsa",
+	"appName": "pickup-driver",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
