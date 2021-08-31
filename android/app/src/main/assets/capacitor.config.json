@@ -1,5 +1,5 @@
 {
-	"appId": "net.driver.pickupsa",
+	"appId": "io.ionic.starter",
 	"appName": "pickup-driver",
 	"webDir": "www",
 	"bundledWebRuntime": false

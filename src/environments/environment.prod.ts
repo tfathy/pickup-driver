@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  backEndApiRoot:'http://161.97.164.43:802',
+  googleMapsAPIKey: 'AIzaSyBifcwaKgvMIfLesKQBEvW_81vrqXewUMc'
 };

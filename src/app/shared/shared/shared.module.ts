@@ -4,9 +4,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MapComponent } from '../map/map.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [MapComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -20,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     IonicModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    MapComponent
   ],
 })
 export class SharedModule {}

@@ -1,9 +1,19 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>requests</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button strong="true" expand="block" fill="solid" (click)="viewRequests()" color="tertiary">{{"requests"|translate}}</ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button  (click)="logout()" >{{"LOG_OUT"|translate}}
+        <ion-icon  name="log-out-outline" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+<app-map *ngIf="currentLocation.lat && currentLocation.lng" [selectable]="false" [title]='' [closeButtonText]=''
+[center]="currentLocation" [showToolbar]="false" ></app-map>
 </ion-content>
