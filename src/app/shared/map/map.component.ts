@@ -11,19 +11,21 @@ import {
 } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { DriverAuthToken, readStorage } from '../common-utils';
+import { SlOrderModel } from '../models/sl-order-model';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit,OnDestroy,AfterViewInit {
-
+export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('map', { static: false }) mapElementRef: ElementRef;
   @Input() center = { lat: 21.43531801495943, lng: 39.825938147213115 }; // meca 21.43531801495943, 39.825938147213115
   @Input() selectable = true;
   @Input() closeButtonText = 'Cancel';
   @Input() title = 'Pick Location';
   @Input() showToolbar = true;
+  @Input() newRequests: SlOrderModel[] = [];
   clickListener: any;
   googleMaps: any;
   constructor(
@@ -36,7 +38,7 @@ export class MapComponent implements OnInit,OnDestroy,AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
     this.getGoogleMaps()
       .then((googleMaps) => {
         this.googleMaps = googleMaps;
@@ -67,6 +69,25 @@ export class MapComponent implements OnInit,OnDestroy,AfterViewInit {
             title: 'Picked Location',
           });
           marker.setMap(map);
+        }
+        console.log('in map comp:this.newRequests=',this.newRequests)
+        if (this.newRequests) {
+          // draw the hot area
+          const image = '/assets/icon/spot.png';
+          this.newRequests.forEach((element) => {
+              if(element.sourceLat !==null && element.sourceLong !==null){
+                const customerLocation:  { lat: number; lng: number }={
+                  lat: parseFloat(element.sourceLat),
+                  lng: parseFloat(element.sourceLong)
+                } ;
+                const marker = new googleMaps.Marker({
+                  position: customerLocation,
+                  map: map,
+                  title: element.customer.phoneNumber,
+                });
+                marker.setMap(map);
+              }
+          });
         }
       })
       .catch((err) => {

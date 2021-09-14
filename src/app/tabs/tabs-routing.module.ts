@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: '/tabs/requests',
-    pathMatch: 'full',
+    pathMatch: 'full',canLoad:[AuthGuard]
   },
   {
     path: '',

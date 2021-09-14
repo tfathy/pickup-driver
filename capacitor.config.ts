@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'net.driver.pickupsa',
   appName: 'pickup-driver',
   webDir: 'www',
   bundledWebRuntime: false

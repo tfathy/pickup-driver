@@ -1,11 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { ModalController, LoadingController, AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { DriverAuthToken, readStorage } from 'src/app/shared/common-utils';
 import { DriverModel } from 'src/app/shared/models/driver-model';
 import { Geolocation } from '@capacitor/geolocation';
 import { AuthService } from 'src/app/services/auth.service';
-
+import { SlOrderModel } from 'src/app/shared/models/sl-order-model';
+import { SlOrderService } from 'src/app/services/sl-order.service';
+import {
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
+import { FcmService } from 'src/app/services/fcm.service';
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.page.html',
@@ -14,13 +22,17 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RequestsPage implements OnInit {
   currentLocation = { lat: null, lng: null };
   driverToken: DriverAuthToken;
+  avaliableRequest: SlOrderModel[] = [];
   driver: DriverModel;
   currentLang: string;
   constructor(
     private modalCtrl: ModalController,
+    private alertController: AlertController,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private orderService: SlOrderService,
+    private fcmService: FcmService
   ) {}
 
   async ngOnInit() {
@@ -32,6 +44,8 @@ export class RequestsPage implements OnInit {
       })
       .then((loadingElmnt) => {
         loadingElmnt.present();
+        //populate avaliableRequest to be marked on the map
+
         Geolocation.getCurrentPosition().then(
           (coordinates) => {
             this.currentLocation.lat = coordinates.coords.latitude;
@@ -46,10 +60,7 @@ export class RequestsPage implements OnInit {
       });
 
     this.authService
-      .loadUserInfo(
-        'Bearer ' + this.driverToken.token,
-        this.driverToken.userId
-      )
+      .loadUserInfo('Bearer ' + this.driverToken.token, this.driverToken.userId)
       .subscribe(
         (data) => {
           this.driver = data.driver;
@@ -58,8 +69,32 @@ export class RequestsPage implements OnInit {
           console.log('error in authService', error);
         }
       );
+    this.orderService
+      .findAvaliableOrders(
+        'Bearer ' + this.driverToken.token,
+        this.driverToken.vclSizeId
+      )
+      .subscribe(
+        (resData) => {
+          this.avaliableRequest = resData;
+          console.log('resData', resData);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+     this.fcmService.initPush();
   }
 
   viewRequests() {}
   logout() {}
+
+  private showAlert(msg: string){
+    this.alertController.create({
+      message: msg,
+      buttons:['Ok']
+    }).then(elmnt=>{
+      elmnt.present();
+    });
+  }
 }

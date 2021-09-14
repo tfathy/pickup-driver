@@ -27,4 +27,20 @@ export interface DriverAuthToken {
   fullNameAr: string;
   userType: string;
   accountStatus: string;
+  driverNameEn: string;
+  driverNameAr: string;
+  terminatedFlag: string;
+  driverId: string;
+  spId: string;
+  spNameAr: string;
+  spNameEn: string;
+  spContactPersonEmail: string;
+  teamDescEn: string;
+  teamId: string;
+  vclId: string;
+  vclDescEn: string;
+  vclCode: string;
+  vclSizeDescEn: string;
+  vclSizeDescAr: string;
+  vclSizeId: string;
 }

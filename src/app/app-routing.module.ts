@@ -6,11 +6,11 @@ const routes: Routes = [
   {
     path: 'home',
     redirectTo: 'tabs',
-    pathMatch: 'full'
+    pathMatch: 'full',canLoad:[AuthGuard]
   },
   {
     path: '',
-    redirectTo: 'tabs',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {

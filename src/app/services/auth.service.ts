@@ -19,6 +19,22 @@ interface AuthResponseData {
   accountStatus: string;
   userType?: string;
   registered?: boolean;
+  driverNameEn?: string;
+  driverNameAr?: string;
+  terminatedFlag?: string;
+  driverId?: number;
+  spId?: number;
+  spNameAr?: string;
+  spNameEn?: string;
+  spContactPersonEmail?: string;
+  teamDescEn?: string;
+  teamId?: number;
+  vclId?: number;
+  vclDescEn?: string;
+  vclCode?: string;
+  vclSizeDescEn?: string;
+  vclSizeDescAr?: string;
+  vclSizeId?: number;
 }
 
 @Injectable({
@@ -31,9 +47,14 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   authLogin(loginEmail: string, loginPassword: string) {
-    return this.http
-      .post<any>(
-        `${environment.backEndApiRoot}/sys-owner-security/owner-auth/login`,
+    console.log('**********authLogin start**************');
+    console.log(
+      `${environment.backEndApiRoot}/driver-security-app/driver-auth/login`
+    );
+    console.log('loginEmail', loginEmail);
+    console.log('loginPassword', loginPassword);
+    return this.http.post<any>(
+        `${environment.backEndApiRoot}/driver-security-app/driver-auth/login`,
         {
           email: loginEmail,
           password: loginPassword,
@@ -42,7 +63,7 @@ export class AuthService {
       )
       .pipe(
         tap((res) => {
-          console.log(res);
+          console.log('res',res);
           this.setUserData(res);
         })
       );
@@ -62,13 +83,14 @@ export class AuthService {
       Authorization: token,
     });
     console.log(
-      `${environment.backEndApiRoot}/sys-owner-security/owner-auth/${userId}`
+      `${environment.backEndApiRoot}/driver-security-app/driver-auth/${userId}`
     );
     return this.http.get<UserResponseData>(
-      `${environment.backEndApiRoot}/sys-owner-security/owner-auth/${userId}`,
+      `${environment.backEndApiRoot}/driver-security-app/driver-auth/${userId}`,
       { headers: headerInfo }
     );
   }
+
   autoLogin() {
     return from(Storage.get({ key: 'DriverAuthData' })).pipe(
       map((storedDate) => {
@@ -100,7 +122,6 @@ export class AuthService {
           parsData.token,
           tokenExpirationTime
         );
-        console.log('User stored is:' + user);
         return user;
       }),
       tap((user) => {
@@ -129,7 +150,23 @@ export class AuthService {
       userData.headers.get('userType'),
       userData.headers.get('accountStatus'),
       userData.headers.get('token'),
-      expirationTime
+      expirationTime,
+      userData.headers.get('driverNameEn'),
+      userData.headers.get('driverNameAr'),
+      userData.headers.get('terminatedFlag'),
+      userData.headers.get('driverId'),
+      userData.headers.get('spId'),
+      userData.headers.get('spNameAr'),
+      userData.headers.get('spNameEn'),
+      userData.headers.get('spContactPersonEmail'),
+      userData.headers.get('teamDescEn'),
+      userData.headers.get('teamId'),
+      userData.headers.get('vclId'),
+      userData.headers.get('vclDescEn'),
+      userData.headers.get('vclCode'),
+      userData.headers.get('vclSizeDescEn'),
+      userData.headers.get('vclSizeDescAr'),
+      userData.headers.get('vclSizeId')
     );
     this.storeAuthData(
       userData.headers.get('userId'),
@@ -139,7 +176,23 @@ export class AuthService {
       userData.headers.get('fullNameEn'),
       userData.headers.get('fullNameAr'),
       userData.headers.get('userType'),
-      userData.headers.get('accountStatus')
+      userData.headers.get('accountStatus'),
+      userData.headers.get('driverNameEn'),
+      userData.headers.get('driverNameAr'),
+      userData.headers.get('terminatedFlag'),
+      userData.headers.get('driverId'),
+      userData.headers.get('spId'),
+      userData.headers.get('spNameAr'),
+      userData.headers.get('spNameEn'),
+      userData.headers.get('spContactPersonEmail'),
+      userData.headers.get('teamDescEn'),
+      userData.headers.get('teamId'),
+      userData.headers.get('vclId'),
+      userData.headers.get('vclDescEn'),
+      userData.headers.get('vclCode'),
+      userData.headers.get('vclSizeDescEn'),
+      userData.headers.get('vclSizeDescAr'),
+      userData.headers.get('vclSizeId')
     );
     this._user.next(user);
     this.autoLogout(user.tokenDuration);
@@ -153,7 +206,23 @@ export class AuthService {
     fullnameEn: string,
     fullnameAr: string,
     userType: string,
-    accountStatus: string
+    accountStatus: string,
+    driverNameEn?: string,
+    driverNameAr?: string,
+    terminatedFlag?: string,
+    driverId?: string,
+    spId?: string,
+    spNameAr?: string,
+    spNameEn?: string,
+    spContactPersonEmail?: string,
+    teamDescEn?: string,
+    teamId?: string,
+    vclId?: string,
+    vclDescEn?: string,
+    vclCode?: string,
+    vclSizeDescEn?: string,
+    vclSizeDescAr?: string,
+    vclSizeId?: string
   ) {
     const data = JSON.stringify({
       userId,
@@ -164,6 +233,22 @@ export class AuthService {
       fullnameAr,
       userType,
       accountStatus,
+      driverNameEn,
+      driverNameAr,
+      terminatedFlag,
+      driverId,
+      spId,
+      spNameAr,
+      spNameEn,
+      spContactPersonEmail,
+      teamDescEn,
+      teamId,
+      vclId,
+      vclDescEn,
+      vclCode,
+      vclSizeDescEn,
+      vclSizeDescAr,
+      vclSizeId,
     });
     Storage.set({ key: 'DriverAuthData', value: data });
   }
@@ -205,11 +290,11 @@ export class AuthService {
 
   private autoLogout(duration: number) {
     console.log('*******autoLogout executed********');
-    if (this.activeLogoutTimer) {
+    /* if (this.activeLogoutTimer) {
       clearTimeout(this.activeLogoutTimer);
     }
     this.activeLogoutTimer = setTimeout(() => {
       this.logout();
-    }, duration);
+    }, duration);*/
   }
 }
