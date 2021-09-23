@@ -9,12 +9,21 @@ import {
 } from '@capacitor/push-notifications';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { DriverService } from './driver.service';
+import { DriverAuthToken, readStorage } from '../shared/common-utils';
 @Injectable({
   providedIn: 'root',
 })
 export class FcmService {
-  constructor(private router: Router, private alertCtrl: AlertController) {}
-  initPush() {
+  driverToken: DriverAuthToken;
+  //https://medium.com/techshots/learn-to-use-firebase-cloud-messaging-to-receive-push-notification-in-ionic-4-vue-app-using-13f5a4458b87
+  constructor(
+    private router: Router,
+    private alertCtrl: AlertController,
+    private driverService: DriverService
+  ) {}
+  async initPush() {
+    this.driverToken = await readStorage('DriverAuthData');
     if (Capacitor.getPlatform() !== 'web') {
       this.registerPush();
     }
@@ -31,9 +40,28 @@ export class FcmService {
     });
 
     PushNotifications.addListener('registration', (token: Token) => {
-    //  this.showAlert('My token: ' + JSON.stringify(token));
-      console.log('token:',JSON.stringify(token));
+      //  this.showAlert('My token: ' + JSON.stringify(token));
+      console.log('token:', JSON.stringify(token));
       // you have to store this token with user id in the database
+      this.driverService
+        .getDriver('Bearer ' + this.driverToken.token, this.driverToken.userId)
+        .subscribe((responseEntity) => {
+          responseEntity.fcmToken = token.value;
+          console.log(responseEntity);
+          this.driverService
+            .updateDriverToken(
+              'Bearer ' + this.driverToken.token,
+              this.driverToken.userId,
+              responseEntity
+            )
+            .subscribe((resUpdated) => {
+              console.log(resUpdated);
+            },err=>{
+              console.log(err);
+            });
+        },error=>{
+          console.log(error);
+        });
     });
     PushNotifications.addListener('registrationError', (error: any) => {
       this.showAlert('Error: ' + JSON.stringify(error));
