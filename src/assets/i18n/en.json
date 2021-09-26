@@ -52,7 +52,10 @@
   "SAVE":"Save",
   "HOME":"Home",
   "REQUESTS":"Requests",
-  "MY_TASKS":"My Tasks"
+  "MY_TASKS":"My Tasks",
+  "AVAILABLE":"Available",
+  "UNAVAILABLE":"Unavailable",
+  "AVAILABE_REQUESTS":"Available Requests"
 
 
 

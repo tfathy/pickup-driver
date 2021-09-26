@@ -1,20 +1,20 @@
-<ion-header>
-  <ion-toolbar color="primary">
+<ion-header class="ion-no-border">
+  <ion-toolbar >
     <ion-buttons slot="start">
-      <ion-button strong="true" expand="block" fill="solid" (click)="viewRequests()" color="tertiary">
-        {{"requests"|translate}}</ion-button>
+      <ion-button  strong="true" expand="block" fill="solid" (click)="viewRequests()" color="danger">
+        {{"REQUESTS"|translate}} {{avaliableRequest.length}}</ion-button>
     </ion-buttons>
-
     <ion-buttons slot="end">
-      <ion-button (click)="logout()">{{"LOG_OUT"|translate}}
-        <ion-icon name="log-out-outline" slot="start"></ion-icon>
-      </ion-button>
+      <ion-item line=none>
+        <ion-label *ngIf="avaliable">{{"AVAILABLE"|translate}}</ion-label>
+        <ion-label *ngIf="!avaliable">{{"UNAVAILABLE"|translate}}</ion-label>
+        <ion-toggle  (ionChange)="driverStatusChange()"></ion-toggle>
+      </ion-item>
     </ion-buttons>
-
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen>
   <app-map *ngIf="currentLocation.lat && currentLocation.lng" [selectable]="false" [title]='' [closeButtonText]=''
     [center]="currentLocation" [showToolbar]="false" [newRequests]="avaliableRequest"></app-map>
 </ion-content>

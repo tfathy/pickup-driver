@@ -8,6 +8,10 @@ const routes: Routes = [
   {
     path: '',
     component: RequestsPage,canLoad:[AuthGuard]
+  },
+  {
+    path: 'open-requests',
+    loadChildren: () => import('./open-requests/open-requests.module').then( m => m.OpenRequestsPageModule)
   }
 ];
 

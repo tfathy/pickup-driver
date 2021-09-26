@@ -25,7 +25,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() closeButtonText = 'Cancel';
   @Input() title = 'Pick Location';
   @Input() showToolbar = true;
-  @Input() newRequests: SlOrderModel[] = [];
+  @Input() newRequests: SlOrderModel[] ;
   clickListener: any;
   googleMaps: any;
   constructor(
@@ -45,7 +45,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
         const mapEl = this.mapElementRef.nativeElement; // the dev
         const map = new googleMaps.Map(mapEl, {
           center: this.center,
-          zoom: 16,
+          zoom: 10,
         });
 
         this.googleMaps.event.addListenerOnce(map, 'idle', () => {
@@ -66,14 +66,15 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
           const marker = new googleMaps.Marker({
             position: this.center,
             map: map,
-            title: 'Picked Location',
+            title: 'You are here',
+            animation: googleMaps.Animation.DROP
           });
           marker.setMap(map);
         }
-        console.log('in map comp:this.newRequests=',this.newRequests)
+        console.log('newRequests',this.newRequests);
         if (this.newRequests) {
           // draw the hot area
-          const image = '/assets/icon/spot.png';
+          const image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/library_maps.png';
           this.newRequests.forEach((element) => {
               if(element.sourceLat !==null && element.sourceLong !==null){
                 const customerLocation:  { lat: number; lng: number }={
@@ -84,6 +85,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
                   position: customerLocation,
                   map: map,
                   title: element.customer.phoneNumber,
+                  icon: image
                 });
                 marker.setMap(map);
               }
@@ -95,7 +97,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() {console.log('Comming newRequests=',this.newRequests);}
   onCancel() {
     this.modalCtrl.dismiss();
   }

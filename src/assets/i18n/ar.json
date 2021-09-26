@@ -52,8 +52,10 @@
   "SAVE":"حفظ",
   "HOME":"الرئيسية",
   "REQUESTS":"طلبات",
-  "MY_TASKS":"مهماتي"
-
+  "MY_TASKS":"مهماتي",
+  "AVAILABLE":"متاح",
+  "UNAVAILABLE":"غير متاح",
+  "AVAILABE_REQUESTS":"طلبات نقل متاحة"
 
 
   ,"ERROR_CANNOT_POST_REQUEST":"خطأ: لم بتمكن النظام من تمرير طلبك"
