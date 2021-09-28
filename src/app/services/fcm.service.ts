@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 
 import { Capacitor } from '@capacitor/core';
@@ -11,22 +12,39 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { DriverService } from './driver.service';
 import { DriverAuthToken, readStorage } from '../shared/common-utils';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { FcmGoogleNotification } from '../shared/models/fcm-google-nofification';
 @Injectable({
   providedIn: 'root',
 })
 export class FcmService {
   driverToken: DriverAuthToken;
+  private url = 'https://fcm.googleapis.com/fcm/send';
   //https://medium.com/techshots/learn-to-use-firebase-cloud-messaging-to-receive-push-notification-in-ionic-4-vue-app-using-13f5a4458b87
   constructor(
     private router: Router,
     private alertCtrl: AlertController,
-    private driverService: DriverService
+    private driverService: DriverService,
+    private http: HttpClient
   ) {}
   async initPush() {
     this.driverToken = await readStorage('DriverAuthData');
     if (Capacitor.getPlatform() !== 'web') {
       this.registerPush();
     }
+  }
+
+  sendNotification(msg: FcmGoogleNotification): Observable<any> {
+    const headerInfo = new HttpHeaders({
+      Authorization: `${environment.cloudMessageApplicationId}`,
+    });
+
+    return this.http.post<any>(`${this.url}`, msg, {
+      headers: headerInfo,
+    });
+
   }
 
   private registerPush() {

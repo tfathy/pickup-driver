@@ -55,7 +55,8 @@
   "MY_TASKS":"مهماتي",
   "AVAILABLE":"متاح",
   "UNAVAILABLE":"غير متاح",
-  "AVAILABE_REQUESTS":"طلبات نقل متاحة"
+  "AVAILABE_REQUESTS":"طلبات نقل متاحة",
+  "ACCEPT_REQUEST":"قبول الطلب"
 
 
   ,"ERROR_CANNOT_POST_REQUEST":"خطأ: لم بتمكن النظام من تمرير طلبك"

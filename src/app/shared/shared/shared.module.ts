@@ -5,9 +5,10 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MapComponent } from '../map/map.component';
+import { OpenRequestDetailsComponent } from '../../../app/tabs/requests/open-requests/open-request-details/open-request-details.component';
 
 @NgModule({
-  declarations: [MapComponent],
+  declarations: [MapComponent,OpenRequestDetailsComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -22,7 +23,8 @@ import { MapComponent } from '../map/map.component';
     IonicModule,
     ReactiveFormsModule,
     TranslateModule,
-    MapComponent
+    MapComponent,
+    OpenRequestDetailsComponent
   ],
 })
 export class SharedModule {}

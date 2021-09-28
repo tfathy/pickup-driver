@@ -1,3 +1,17 @@
-<p>
-  open-request-details works!
-</p>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+   <ion-buttons slot="end">
+     <ion-button (click)="accept()">{{"ACCEPT_REQUEST"|translate}}</ion-button>
+   </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" fill="clear">
+        {{"BACK"|translate}}
+        <ion-icon name="arrow-forward-circle" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-label>fcm message=</ion-label>
+  <ion-label>{{pushMessageToken}}</ion-label>
+</ion-content>
