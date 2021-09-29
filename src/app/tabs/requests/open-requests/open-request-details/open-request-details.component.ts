@@ -51,6 +51,9 @@ export class OpenRequestDetailsComponent implements OnInit {
           (notificationResponse) => {
             console.log(notificationResponse);
             loadinElmnt.dismiss();
+            this.modalCtrl.dismiss({
+              accepted: true
+            });
           },
           (err) => {
             console.log(err);

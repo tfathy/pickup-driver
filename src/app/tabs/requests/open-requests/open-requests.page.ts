@@ -69,24 +69,50 @@ export class OpenRequestsPage implements OnInit {
         loadingElmnt.present();
         this.userService
           .loadUserInfo('Bearer' + this.driverToken.token, model.customer.id)
-          .subscribe((orderResponse) => {
-            const fcmToken = orderResponse.fcmToken;
-            loadingElmnt.dismiss();
-            this.modalCtrl.create({
-              component: OpenRequestDetailsComponent,
-              componentProps: {
-                payload: model,
-                authToken: this.driverToken,
-                pushMessageToken: fcmToken,
-              },
-            }).then(modalCtrl=>{
-              modalCtrl.present();
-            });
-          },error=>{
-            loadingElmnt.dismiss();
-            console.log(error);
-            this.showAlert('Error: cannot get message token for the customer');
-          });
+          .subscribe(
+            (orderResponse) => {
+              const fcmToken = orderResponse.fcmToken;
+              loadingElmnt.dismiss();
+              this.modalCtrl
+                .create({
+                  component: OpenRequestDetailsComponent,
+                  componentProps: {
+                    payload: model,
+                    authToken: this.driverToken,
+                    pushMessageToken: fcmToken,
+                  },
+                })
+                .then((modalCtrl) => {
+                  modalCtrl.present();
+                  modalCtrl.onDidDismiss().then((dismissData) => {
+                    if (dismissData.data.accepted) {
+                      model.ordStatus = 'ACCEPTED';
+                      model.team = this.drverTeam;
+                      this.orderServices
+                        .updateOrder(
+                          'Bearer' + this.driverToken.token,
+                          model,
+                          model.id
+                        )
+                        .subscribe((updatedDataResponse) => {
+                          console.log(updatedDataResponse);
+                          this.showAlert('You accepted the request');
+                        },error=>{
+                          console.log(error);
+                          this.showAlert('error. The request cannot be taken');
+                        });
+                    }
+                  });
+                });
+            },
+            (error) => {
+              loadingElmnt.dismiss();
+              console.log(error);
+              this.showAlert(
+                'Error: cannot get message token for the customer'
+              );
+            }
+          );
       });
   }
   back() {
