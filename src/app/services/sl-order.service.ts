@@ -30,8 +30,9 @@ export class SlOrderService {
     const headerInfo = new HttpHeaders({
       Authorization: token,
     });
+    console.log('updateOrder data the new order must be this', order);
     return this.http.put<SlOrderModel>(
-      `${environment.backEndApiRoot}/order/${id}`,
+      `${environment.backEndApiRoot}/${this.url}/order/${id}`,
       order,
       { headers: headerInfo }
     );

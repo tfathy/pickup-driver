@@ -5,6 +5,7 @@ import {
   LoadingController,
   ModalController,
 } from '@ionic/angular';
+import { DriverService } from 'src/app/services/driver.service';
 import { SlOrderService } from 'src/app/services/sl-order.service';
 import { UserService } from 'src/app/services/user.service';
 import { DriverAuthToken, readStorage } from 'src/app/shared/common-utils';
@@ -13,6 +14,7 @@ import {
   PushNotificationMessage,
 } from 'src/app/shared/models/fcm-google-nofification';
 import { SlOrderModel } from 'src/app/shared/models/sl-order-model';
+import { SlTeamModel } from 'src/app/shared/models/sl-team-model';
 import { OpenRequestDetailsComponent } from './open-request-details/open-request-details.component';
 
 @Component({
@@ -22,6 +24,7 @@ import { OpenRequestDetailsComponent } from './open-request-details/open-request
 })
 export class OpenRequestsPage implements OnInit {
   driverToken: DriverAuthToken;
+  drverTeam: SlTeamModel;
   openOrders: SlOrderModel[];
   fcmGoogleNotification: FcmGoogleNotification;
   msg: PushNotificationMessage;
@@ -31,6 +34,7 @@ export class OpenRequestsPage implements OnInit {
     private loadingCtrl: LoadingController,
     private orderServices: SlOrderService,
     private userService: UserService,
+    private driverService: DriverService,
     private alertController: AlertController,
     private modalCtrl: ModalController
   ) {}
@@ -51,7 +55,17 @@ export class OpenRequestsPage implements OnInit {
           .subscribe(
             (resData) => {
               this.openOrders = resData;
-              loadingElmnt.dismiss();
+              this.driverService
+                .getManagerTeam(
+                  'Bearer ' + this.driverToken.token,
+                  this.driverToken.driverId
+                )
+                .subscribe((teamResponseData) => {
+                  // this dirver must be a manager for a team . return his team object
+                  console.log('team=',teamResponseData);
+                  this.drverTeam = teamResponseData;
+                  loadingElmnt.dismiss();
+                });
             },
             (error) => {
               console.log(error);
@@ -68,7 +82,7 @@ export class OpenRequestsPage implements OnInit {
       .then((loadingElmnt) => {
         loadingElmnt.present();
         this.userService
-          .loadUserInfo('Bearer' + this.driverToken.token, model.customer.id)
+          .loadUserInfo('Bearer ' + this.driverToken.token, model.customer.id)
           .subscribe(
             (orderResponse) => {
               const fcmToken = orderResponse.fcmToken;
@@ -87,20 +101,25 @@ export class OpenRequestsPage implements OnInit {
                   modalCtrl.onDidDismiss().then((dismissData) => {
                     if (dismissData.data.accepted) {
                       model.ordStatus = 'ACCEPTED';
-                      model.team = this.drverTeam;
+                      model.team = this.drverTeam; // update the order ,this team takes this order
                       this.orderServices
                         .updateOrder(
-                          'Bearer' + this.driverToken.token,
+                          'Bearer ' + this.driverToken.token,
                           model,
                           model.id
                         )
-                        .subscribe((updatedDataResponse) => {
-                          console.log(updatedDataResponse);
-                          this.showAlert('You accepted the request');
-                        },error=>{
-                          console.log(error);
-                          this.showAlert('error. The request cannot be taken');
-                        });
+                        .subscribe(
+                          (updatedDataResponse) => {
+                            console.log(updatedDataResponse);
+                            this.showAlert('You accepted the request.Notification is sent to the Customer');
+                          },
+                          (error) => {
+                            console.log(error);
+                            this.showAlert(
+                              'error. The request cannot be taken'
+                            );
+                          }
+                        );
                     }
                   });
                 });
