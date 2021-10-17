@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { FcmService } from 'src/app/services/fcm.service';
 import { DriverAuthToken } from 'src/app/shared/common-utils';
+import { TranslateService } from '@ngx-translate/core';
 import {
   FcmGoogleNotification,
   NotificationMoreInfo,
@@ -18,13 +19,27 @@ export class OpenRequestDetailsComponent implements OnInit {
   @Input() payload: SlOrderModel;
   @Input() authToken: DriverAuthToken;
   @Input() pushMessageToken: string;
+  messageTitle;
+  messageBody;
   constructor(
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
-    private fcmService: FcmService
+    private fcmService: FcmService,
+    private translateService: TranslateService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.translateService
+      .get('NOTIFICATION_2CUSTOMER_ACCEPT_TITLE')
+      .subscribe((retValue) => {
+        this.messageTitle = retValue;
+      });
+      this.translateService
+      .get('NOTIFICATION_2CUSTOMER_ACCEPT_BODY')
+      .subscribe((retValue) => {
+        this.messageBody = retValue;
+      });
+  }
   back() {}
   accept() {
     let fcmGoogleNotification: FcmGoogleNotification;
@@ -35,23 +50,23 @@ export class OpenRequestDetailsComponent implements OnInit {
       })
       .then((loadinElmnt) => {
         loadinElmnt.present();
-        const moreInfo = new NotificationMoreInfo('more information goes here');
+        const moreInfo = new NotificationMoreInfo(this.payload);
         msg = new PushNotificationMessage(
-          'Acceptded',
-          'your request has been accepted',
-          ''
+          this.messageTitle,
+          this.messageBody,
+          'https://owner.pickup-sa.net/assets/icon/vcl-green.png'
         );
         fcmGoogleNotification = new FcmGoogleNotification(
           msg,
           moreInfo,
           this.pushMessageToken
         );
-        console.log('fcmGoogleNotification=',fcmGoogleNotification);
+        console.log('fcmGoogleNotification=', fcmGoogleNotification);
         this.fcmService.sendNotification(fcmGoogleNotification).subscribe(
           (notificationResponse) => {
             console.log(notificationResponse);
             loadinElmnt.dismiss();
-            this.modalCtrl.dismiss({accepted: true});
+            this.modalCtrl.dismiss({ accepted: true });
           },
           (err) => {
             console.log(err);

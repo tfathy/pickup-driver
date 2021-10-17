@@ -31,6 +31,7 @@ export class FcmService {
   ) {}
   async initPush() {
     this.driverToken = await readStorage('DriverAuthData');
+    console.log(Capacitor.getPlatform());
     if (Capacitor.getPlatform() !== 'web') {
       this.registerPush();
     }
@@ -44,45 +45,54 @@ export class FcmService {
     return this.http.post<any>(`${this.url}`, msg, {
       headers: headerInfo,
     });
-
   }
 
   private registerPush() {
+    console.log('***********registerPush starts*****');
     PushNotifications.requestPermissions().then((permission) => {
       if (permission.receive === 'granted') {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
+        console.log('***********registered');
       } else {
         this.showAlert('********************NO permission');
       }
     });
 
     PushNotifications.addListener('registration', (token: Token) => {
-      //  this.showAlert('My token: ' + JSON.stringify(token));
+     //  this.showAlert('My token: ' + JSON.stringify(token));
       console.log('token:', JSON.stringify(token));
       // you have to store this token with user id in the database
-      this.driverService
+    this.driverService
         .getDriver('Bearer ' + this.driverToken.token, this.driverToken.userId)
-        .subscribe((responseEntity) => {
-          responseEntity.fcmToken = token.value;
-          console.log(responseEntity);
-          this.driverService
-            .updateDriverToken(
-              'Bearer ' + this.driverToken.token,
-              this.driverToken.userId,
-              responseEntity
-            )
-            .subscribe((resUpdated) => {
-              console.log(resUpdated);
-            },err=>{
-              console.log(err);
-            });
-        },error=>{
-          console.log(error);
-        });
+        .subscribe(
+          (responseEntity) => {
+            responseEntity.fcmToken = token.value;
+            console.log(responseEntity);
+            this.driverService
+              .updateDriverToken(
+                'Bearer ' + this.driverToken.token,
+                this.driverToken.userId,
+                responseEntity
+              )
+              .subscribe(
+                (resUpdated) => {
+                  console.log(resUpdated);
+                },
+                (err) => {
+                  console.log(err);
+                }
+              );
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     });
+
     PushNotifications.addListener('registrationError', (error: any) => {
-      this.showAlert('Error: ' + JSON.stringify(error));
+      console.log('error in registeration fcm',error);
+      this.showAlert('Error in registeration fcm : ' + JSON.stringify(error));
     });
     PushNotifications.addListener(
       'pushNotificationReceived',
@@ -118,3 +128,18 @@ export class FcmService {
       });
   }
 }
+
+/*
+{
+    "notification": {
+        "title": "New Request",
+        "body": "You got a new Request",
+        "icon": "",
+        "click_action":"https://wwww.tarek-bakr.net"
+        "data": {
+            "info": "more information goes here"
+        },
+        "to": "ey2yL08AS_Kc33h4zwGBuL:A..."
+    }
+}
+*/

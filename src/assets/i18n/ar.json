@@ -66,5 +66,8 @@
   ,"USER_CREATED":"تم إرسال كلمة السر الخاصة بك الى بريدك الاكتروني.يجب تغيرها بعد الدخول للتطبيق"
   ,"GET_CURRENT_LOCATION":"الموقع الحالي"
   ,"PICK_FROM_MAP":"اختر من الخريطة"
-  ,"PLEASE_CHHOSE_LOCATION":"حدد الموقع"
+  ,"PLEASE_CHHOSE_LOCATION":"حدد الموقع",
+
+  "NOTIFICATION_2CUSTOMER_ACCEPT_TITLE": "تم قبول الطلب",
+  "NOTIFICATION_2CUSTOMER_ACCEPT_BODY": "لقد تم قبول طلب النقل الخاص بك اضعط للاطلاع على التفاصيل"
 }

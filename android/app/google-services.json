@@ -1,13 +1,46 @@
 {
   "project_info": {
     "project_number": "630147877886",
+    "firebase_url": "https://pickup-b712c-default-rtdb.firebaseio.com",
     "project_id": "pickup-b712c",
     "storage_bucket": "pickup-b712c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:630147877886:android:8a724864ed0e1be2bbceaf",
+        "mobilesdk_app_id": "1:630147877886:android:e777ca3dbbe3354bbbceaf",
+        "android_client_info": {
+          "package_name": "net.customer.pickupsa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630147877886-4nphrjbuf6tmj9rgo032kq5vbimrkmqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2J5F_WASMyGLDK3vHeL10dmgeTKBCnjE"
+        },
+        {
+          "current_key": "AIzaSyCXyCKVCv_iQr5o2XXKm2QLWjMMdFKP9YQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630147877886-4nphrjbuf6tmj9rgo032kq5vbimrkmqm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630147877886:android:8715047332e8bc8dbbceaf",
         "android_client_info": {
           "package_name": "net.driver.pickupsa"
         }
@@ -21,6 +54,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyC2J5F_WASMyGLDK3vHeL10dmgeTKBCnjE"
+        },
+        {
+          "current_key": "AIzaSyCXyCKVCv_iQr5o2XXKm2QLWjMMdFKP9YQ"
         }
       ],
       "services": {

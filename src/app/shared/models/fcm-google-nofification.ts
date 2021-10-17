@@ -15,7 +15,7 @@ export class PushNotificationMessage {
 }
 
 export class NotificationMoreInfo {
-  constructor(public info: string){}
+  constructor(public info){}
 }
 
 /*
