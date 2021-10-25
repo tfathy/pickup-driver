@@ -16,6 +16,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FcmGoogleNotification } from '../shared/models/fcm-google-nofification';
+import { RealDataService } from './real-data.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -27,6 +28,7 @@ export class FcmService {
     private router: Router,
     private alertCtrl: AlertController,
     private driverService: DriverService,
+    private readDataService: RealDataService,
     private http: HttpClient
   ) {}
   async initPush() {
@@ -97,8 +99,10 @@ export class FcmService {
     PushNotifications.addListener(
       'pushNotificationReceived',
       async (notification: PushNotificationSchema) => {
-        this.showAlert('Push received: ' + JSON.stringify(notification));
+      //  this.showAlert('Push received: ' + JSON.stringify(notification));
         // fires when notification received
+        console.log('notification=',notification);
+       await  this.readDataService.reloadOrders();
       }
     );
     // the following listner fires when the user has clicked on the notification

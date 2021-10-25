@@ -70,18 +70,12 @@ export class LoginPage implements OnInit {
             () => {
               console.log('**********authLogin 1**************');
               readStorage('DriverAuthData').then((storageData) => {
-                console.log('**********readStorage start**************');
                 this.token = storageData;
                 console.log('this.token.userId', this.token.userId);
                 this.loginInfoService
                   .loadUserData('Bearer ' + this.token.token, this.token.userId)
                   .subscribe(
                     (userDataResponse) => {
-                      console.log(
-                        'in loginInfoService.loadUserData= returns',
-                        userDataResponse
-                      );
-                      console.log('loginInfoService');
                       const sysUser = new SysUserModel(userDataResponse.id);
                       this.loginInfo = new LoginInfoModel(
                         null,

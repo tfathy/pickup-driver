@@ -6,6 +6,7 @@ import {
   ModalController,
 } from '@ionic/angular';
 import { DriverService } from 'src/app/services/driver.service';
+import { RealDataService } from 'src/app/services/real-data.service';
 import { SlOrderService } from 'src/app/services/sl-order.service';
 import { UserService } from 'src/app/services/user.service';
 import { DriverAuthToken, readStorage } from 'src/app/shared/common-utils';
@@ -32,6 +33,7 @@ export class OpenRequestsPage implements OnInit {
   constructor(
     private router: Router,
     private loadingCtrl: LoadingController,
+    private realDataService: RealDataService,
     private orderServices: SlOrderService,
     private userService: UserService,
     private driverService: DriverService,
@@ -135,7 +137,10 @@ export class OpenRequestsPage implements OnInit {
       });
   }
   back() {
-    this.router.navigate(['/', 'tabs', 'requests']);
+    this.realDataService.reloadOrders().then(res=>{
+       this.router.navigate(['/', 'tabs', 'requests']);
+    });
+
   }
 
   private showAlert(msg: string) {

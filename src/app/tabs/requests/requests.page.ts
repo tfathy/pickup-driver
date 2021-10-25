@@ -11,21 +11,19 @@ import { Geolocation } from '@capacitor/geolocation';
 import { AuthService } from 'src/app/services/auth.service';
 import { SlOrderModel } from 'src/app/shared/models/sl-order-model';
 import { SlOrderService } from 'src/app/services/sl-order.service';
-import {
-  ActionPerformed,
-  PushNotificationSchema,
-  PushNotifications,
-  Token,
-} from '@capacitor/push-notifications';
+
 import { FcmService } from 'src/app/services/fcm.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { RealDataService } from 'src/app/services/real-data.service';
+
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.page.html',
   styleUrls: ['./requests.page.scss'],
 })
-export class RequestsPage implements OnInit {
-  avaliable =true;
+export class RequestsPage implements OnInit, AfterViewInit {
+  avaliable = true;
   currentLocation = { lat: null, lng: null };
   driverToken: DriverAuthToken;
   avaliableRequest: SlOrderModel[] = [];
@@ -34,6 +32,7 @@ export class RequestsPage implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
+    public realDataService: RealDataService,
     private router: Router,
     private alertController: AlertController,
     private authService: AuthService,
@@ -42,45 +41,64 @@ export class RequestsPage implements OnInit {
     private orderService: SlOrderService,
     private fcmService: FcmService
   ) {}
+  ngAfterViewInit(): void {}
 
   async ngOnInit() {
     this.currentLang = this.translateService.getDefaultLang();
     this.driverToken = await readStorage('DriverAuthData');
+    await this.realDataService.reloadOrders();
+    this.loadingCtrl
+      .create({
+        message: 'accessing location',
+      })
+      .then((loadingElmnt) => {
+        Geolocation.getCurrentPosition().then(
+          (coordinates) => {
+            this.currentLocation.lat = coordinates.coords.latitude;
+            this.currentLocation.lng = coordinates.coords.longitude;
+            loadingElmnt.dismiss();
+          },
+          (rejected) => {
+            loadingElmnt.dismiss();
+            console.log(rejected);
+          }
+        );
+      });
 
-    this.orderService
-      .findAvaliableOrders(
-        'Bearer ' + this.driverToken.token,
-        this.driverToken.vclSizeId
-      )
-      .subscribe(
-        (resData) => {
-          this.avaliableRequest = resData;
-          console.log(' this.avaliableRequest =', resData);
-          this.loadingCtrl
-            .create({
-              message: 'Picking current location... please wait',
-            })
-            .then((loadingElmnt) => {
-              loadingElmnt.present();
-              //populate avaliableRequest to be marked on the map
+    // this.orderService
+    //   .findAvaliableOrders(
+    //     'Bearer ' + this.driverToken.token,
+    //     this.driverToken.vclSizeId
+    //   )
+    //   .subscribe(
+    //     (resData) => {
+    //       this.avaliableRequest = resData;
+    //       console.log(' this.avaliableRequest =', resData);
+    //       this.loadingCtrl
+    //         .create({
+    //           message: 'Picking current location... please wait',
+    //         })
+    //         .then((loadingElmnt) => {
+    //           loadingElmnt.present();
+    //           //populate avaliableRequest to be marked on the map
 
-              Geolocation.getCurrentPosition().then(
-                (coordinates) => {
-                  this.currentLocation.lat = coordinates.coords.latitude;
-                  this.currentLocation.lng = coordinates.coords.longitude;
-                  loadingElmnt.dismiss();
-                },
-                (rejected) => {
-                  loadingElmnt.dismiss();
-                  console.log(rejected);
-                }
-              );
-            });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    //           Geolocation.getCurrentPosition().then(
+    //             (coordinates) => {
+    //               this.currentLocation.lat = coordinates.coords.latitude;
+    //               this.currentLocation.lng = coordinates.coords.longitude;
+    //               loadingElmnt.dismiss();
+    //             },
+    //             (rejected) => {
+    //               loadingElmnt.dismiss();
+    //               console.log(rejected);
+    //             }
+    //           );
+    //         });
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
 
     this.authService
       .loadUserInfo('Bearer ' + this.driverToken.token, this.driverToken.userId)
@@ -97,11 +115,11 @@ export class RequestsPage implements OnInit {
   }
 
   viewRequests() {
-    this.router.navigate(['/','tabs','requests','open-requests']);
+    this.router.navigate(['/', 'tabs', 'requests', 'open-requests']);
   }
   logout() {}
 
-  driverStatusChange(){
+  driverStatusChange() {
     this.avaliable = !this.avaliable;
   }
   private showAlert(msg: string) {
@@ -114,5 +132,4 @@ export class RequestsPage implements OnInit {
         elmnt.present();
       });
   }
-
 }

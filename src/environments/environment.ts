@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  backEndApiRoot:'http://localhost:802',
+  backEndApiRoot:'https://localhost:802',
   googleMapsAPIKey: 'AIzaSyBifcwaKgvMIfLesKQBEvW_81vrqXewUMc',
   cloudMessageApplicationId:'key=AAAAkre9i_4:APA91bGR1KhT01xFxkmx9B0g2JycQzD_ovBew17cfHY25wHn4yT1KpoFmmOLTZxGWpxcVq2h8ZPrXDMsX72w-O9690FFp2ONwG1-GttgFTdjpgot92VxtsL73gY8iHksr6H6PjfAkuS9'
 };

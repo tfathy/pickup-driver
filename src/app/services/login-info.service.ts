@@ -21,7 +21,6 @@ export class LoginInfoService {
     const headerInfo = new HttpHeaders({
       Authorization: token,
     });
-    console.log('inside createLoginInfo');
     console.log('loginInfo',loginInfo);
     return this.http.post<LoginInfoModel>(
       `${environment.backEndApiRoot}/${this.url}`,
