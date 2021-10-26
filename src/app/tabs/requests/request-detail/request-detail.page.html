@@ -15,7 +15,7 @@
 <ion-content>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="model? model.customer.phoneNumber:false">
     <ion-fab-button color="light" >
-      <a href="tel:1-562-867-5309" color="primary">
+      <a href="tel:"{{ model.customer.phoneNumber}} color="primary">
         {{"CALL"|translate}}
       </a>
 
@@ -42,7 +42,7 @@
     </ion-row>
     <ion-row *ngFor="let img  of images;let i = index">
       <ion-col size="6">
-        <ion-img [src]="downloadUrl+'/'+img.imageName"></ion-img>
+        <ion-img [src]="img.imageName"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>

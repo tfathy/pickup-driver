@@ -103,7 +103,6 @@ export class RequestDetailPage implements OnInit {
   }
   phoneCustomer(phoneNum) {}
 
-
   sendProposal(orderModel) {
     this.modalCtrl
       .create({
@@ -129,9 +128,7 @@ export class RequestDetailPage implements OnInit {
               .subscribe(
                 (updatedDataResponse) => {
                   console.log(updatedDataResponse);
-                  this.showAlert(
-                    'PROPOSAL_IS_SENT'
-                  );
+                  this.showAlert('PROPOSAL_IS_SENT');
                 },
                 (error) => {
                   console.log(error);
@@ -142,6 +139,7 @@ export class RequestDetailPage implements OnInit {
         });
       });
   }
+
 
   private showAlert(msgKey: string) {
     this.translateService.get(msgKey).subscribe((msgText) => {

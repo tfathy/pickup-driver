@@ -1,7 +1,9 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { OrderImagesModel } from '../shared/models/order-images-model';
 import { SlOrderModel } from '../shared/models/sl-order-model';
@@ -57,6 +59,10 @@ export class SlOrderService {
     return this.http.get<OrderImagesModel[]>(
       `${environment.backEndApiRoot}/${this.orderImagesUrl}/${ordId}`,
       { headers: headerInfo }
-    );
+    ).pipe(map(responseArray=>responseArray.map(record=>new OrderImagesModel(record.id,
+      record.ordId,
+      `${environment.fileDownloadUrl}/${record.imageName}`,
+      record.imageExt,record.imageSize))));
   }
+
 }
