@@ -30,6 +30,7 @@ export class OpenRequestsPage implements OnInit {
   fcmGoogleNotification: FcmGoogleNotification;
   msg: PushNotificationMessage;
   fcmToke: string;
+  currentDate = new Date();
   constructor(
     private router: Router,
     private loadingCtrl: LoadingController,
@@ -75,8 +76,11 @@ export class OpenRequestsPage implements OnInit {
             }
           );
       });
+
   }
   openDetails(model: SlOrderModel) {
+    this.router.navigate(['/','tabs','requests','request-detail',model.id]);
+/*
     this.loadingCtrl
       .create({
         message: 'fetching request details ..please wait',
@@ -89,6 +93,7 @@ export class OpenRequestsPage implements OnInit {
             (orderResponse) => {
               const fcmToken = orderResponse.fcmToken;
               loadingElmnt.dismiss();
+
               this.modalCtrl
                 .create({
                   component: OpenRequestDetailsComponent,
@@ -125,6 +130,8 @@ export class OpenRequestsPage implements OnInit {
                     }
                   });
                 });
+
+
             },
             (error) => {
               loadingElmnt.dismiss();
@@ -135,6 +142,7 @@ export class OpenRequestsPage implements OnInit {
             }
           );
       });
+      */
   }
   back() {
     this.realDataService.reloadOrders().then(res=>{

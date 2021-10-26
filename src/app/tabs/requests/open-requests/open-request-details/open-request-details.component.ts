@@ -34,19 +34,26 @@ export class OpenRequestDetailsComponent implements OnInit {
       .subscribe((retValue) => {
         this.messageTitle = retValue;
       });
-      this.translateService
-      .get('NOTIFICATION_2CUSTOMER_ACCEPT_BODY')
-      .subscribe((retValue) => {
-        this.messageBody = retValue;
-      });
   }
-  back() {}
-  accept() {
+  back() {
+    this.modalCtrl.dismiss();
+  }
+  setPropodsalVale() {
+
+    if(!this.payload.estimatedCost){
+      return;
+    }
+    this.translateService
+    .get('NOTIFICATION_2CUSTOMER_ACCEPT_BODY')
+    .subscribe((retValue) => {
+      this.messageBody = retValue+this.payload.estimatedCost;
+    });
+
     let fcmGoogleNotification: FcmGoogleNotification;
     let msg: PushNotificationMessage;
     this.loadingCtrl
       .create({
-        message: 'Sending notifications to customer ..',
+        message: 'Sending proposal to the customer ..',
       })
       .then((loadinElmnt) => {
         loadinElmnt.present();

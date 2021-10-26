@@ -22,6 +22,8 @@ export class RealDataService {
       .subscribe((resData) => {
         this.avaliableRequest = resData;
         console.log(' data reploaded :avaliableRequest =', resData);
+      },error=>{
+        console.log('error while loading list of orders',error);
       });
   }
 }

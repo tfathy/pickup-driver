@@ -57,6 +57,13 @@
   "UNAVAILABLE": "Unavailable",
   "AVAILABE_REQUESTS": "Available Requests",
   "ACCEPT_REQUEST": "Accept Request",
+  "CUSTOMER_NOTES":"Customer Notes",
+  "FROM":"From",
+  "TO":"To",
+  "SEND_PROPOSAL":"Send Proposal",
+  "PROPOSAL_VALUE":"Proposal Value",
+  "CALL":"Call",
+
 
   "ERROR_CANNOT_POST_REQUEST": "Error: Cannot post the request",
   "REQUEST_POSTED": "Your request is sent to all avaliable vehicles.You will get a notification as sson as the request is picked.Thank you",
@@ -66,7 +73,9 @@
   "GET_CURRENT_LOCATION": "Pick Current Location",
   "PICK_FROM_MAP": "Pick from map",
   "PLEASE_CHHOSE_LOCATION": "Choose location",
+  "ERROR":"Error",
+  "PROPOSAL_IS_SENT":"Your proposal has been sent to the customer",
 
-  "NOTIFICATION_2CUSTOMER_ACCEPT_TITLE": "Request Accepted",
-  "NOTIFICATION_2CUSTOMER_ACCEPT_BODY": "Your request has been accepted by the driver.Tap for more details"
+  "NOTIFICATION_2CUSTOMER_ACCEPT_TITLE": "Proposal",
+  "NOTIFICATION_2CUSTOMER_ACCEPT_BODY": "You got a new proposal.The proposal value is"
 }

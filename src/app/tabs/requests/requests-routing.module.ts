@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'open-requests',
     loadChildren: () => import('./open-requests/open-requests.module').then( m => m.OpenRequestsPageModule)
+  },
+  {
+    path: 'request-detail/:id',
+    loadChildren: () => import('./request-detail/request-detail.module').then( m => m.RequestDetailPageModule)
   }
 ];
 

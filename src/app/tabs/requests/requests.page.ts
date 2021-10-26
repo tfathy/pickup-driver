@@ -121,6 +121,7 @@ export class RequestsPage implements OnInit, AfterViewInit {
 
   driverStatusChange() {
     this.avaliable = !this.avaliable;
+    // update user status set OFFLINE
   }
   private showAlert(msg: string) {
     this.alertController

@@ -56,10 +56,15 @@
   "AVAILABLE":"متاح",
   "UNAVAILABLE":"غير متاح",
   "AVAILABE_REQUESTS":"طلبات نقل متاحة",
-  "ACCEPT_REQUEST":"قبول الطلب"
+  "ACCEPT_REQUEST":"قبول الطلب",
+  "CUSTOMER_NOTES":"طلب العميل",
+  "FROM":"من",
+  "TO":"إالى",
+  "SEND_PROPOSAL":"إرسال عرض سعر",
+  "PROPOSAL_VALUE":"مبلغ العرض",
+  "CALL":"إتصال",
 
-
-  ,"ERROR_CANNOT_POST_REQUEST":"خطأ: لم بتمكن النظام من تمرير طلبك"
+  "ERROR_CANNOT_POST_REQUEST":"خطأ: لم بتمكن النظام من تمرير طلبك"
   ,"REQUEST_POSTED":"تم ارسال طلبك لكل شركات وسائقى النقل .سيتم تنبيهك حال قبول طلبك."
   ,"REQUEST_CANCELED":"تم إلغاء الطلب "
   ,"ENABLE_LOCATION_ACCESS":"يجب منح التطبيق صلاحية الاتصال بالموقع الجغرافي اولا"
@@ -67,7 +72,9 @@
   ,"GET_CURRENT_LOCATION":"الموقع الحالي"
   ,"PICK_FROM_MAP":"اختر من الخريطة"
   ,"PLEASE_CHHOSE_LOCATION":"حدد الموقع",
+  "ERROR":"خطأ",
+  "PROPOSAL_IS_SENT":"تم إرسال عرض السعر للعميل",
 
-  "NOTIFICATION_2CUSTOMER_ACCEPT_TITLE": "تم قبول الطلب",
-  "NOTIFICATION_2CUSTOMER_ACCEPT_BODY": "لقد تم قبول طلب النقل الخاص بك اضعط للاطلاع على التفاصيل"
+  "NOTIFICATION_2CUSTOMER_ACCEPT_TITLE": "عرض سعر",
+  "NOTIFICATION_2CUSTOMER_ACCEPT_BODY": "لديك عرض سعر جديد بخصوص طلب النقل الخاص بك. العرض المقدم هو "
 }

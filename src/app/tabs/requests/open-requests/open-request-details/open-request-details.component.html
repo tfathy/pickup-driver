@@ -1,10 +1,7 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar color="primary">
-   <ion-buttons slot="end">
-     <ion-button (click)="accept()">{{"ACCEPT_REQUEST"|translate}}</ion-button>
-   </ion-buttons>
+  <ion-toolbar color="light">
     <ion-buttons slot="start">
-      <ion-button (click)="back()" fill="clear">
+      <ion-button (click)="back()" fill="clear" color="primary">
         {{"BACK"|translate}}
         <ion-icon name="arrow-forward-circle" slot="start"></ion-icon>
       </ion-button>
@@ -12,6 +9,14 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-label>fcm message=</ion-label>
-  <ion-label>{{pushMessageToken}}</ion-label>
+  <ion-item>
+    <ion-label position="floating">{{"PROPOSAL_VALUE"|translate}}</ion-label>
+    <ion-input [(ngModel)]="payload.estimatedCost"></ion-input>
+  </ion-item>
 </ion-content>
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-button fill="clear" expand="full" color="light"
+    (click)="setPropodsalVale()">{{"SEND_PROPOSAL"|translate}}</ion-button>
+  </ion-toolbar>
+</ion-footer>
