@@ -1,0 +1,75 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title color="primary">{{"ROAD_MAP"|translate}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="back()">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="order">
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="stacked">{{"SOURCE_LOCATION"|translate}}</ion-label>
+          <ion-input readonly>{{order.sourceFormattedAddress}}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="stacked">{{"DESTINATION_LOCATION"|translate}}</ion-label>
+          <ion-input readonly>{{order.destFormattedAddress}}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="stacked">{{"LUGGAGE_DETAILS"|translate}}</ion-label>
+          <ion-input readonly>{{order.customerNotes}}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">{{"CUSTOMER_NAME_AR"|translate}}</ion-label>
+          <ion-input readonly>{{order.customer.fullNameAr}}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">{{"CUSTOMER_NAME_EN"|translate}}</ion-label>
+          <ion-input readonly>{{order.customer.fullNameEn}}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">{{"CUSTOMER_PHONE"|translate}}</ion-label>
+          <ion-input readonly>{{order.customer.phoneNumber}}</ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">{{"ORDER_VALUE"|translate}}</ion-label>
+          <ion-input readonly>{{order.estimatedCost}}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">{{"ORDER_DATE"|translate}}</ion-label>
+          <ion-input readonly>{{order.requestDate|date:'dd-MM-yyyy hh:m'}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
+<ion-footer *ngIf="order">
+  <ion-toolbar [color]="order.ordStatus === 'CUSTOMER_ACCEPT'?'primary':'danger'">
+    <ion-button *ngIf="order.ordStatus === 'CUSTOMER_ACCEPT'" color="light" fill="clear" expand="full" (click)="startJoury()">{{"START_JOURNEY"|translate}}
+    </ion-button>
+    <ion-button  *ngIf="order.ordStatus !== 'CUSTOMER_ACCEPT'" color="light" fill="clear" expand="full" (click)="endJoureny()">{{"END_JOURNEY"|translate}}
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

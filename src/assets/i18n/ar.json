@@ -63,6 +63,17 @@
   "SEND_PROPOSAL":"إرسال عرض سعر",
   "PROPOSAL_VALUE":"مبلغ العرض",
   "CALL":"إتصال",
+  "ROAD_MAP":"خط السير",
+  "ORDER_VALUE":"قيمة التعاقد",
+  "ORDER_DATE":"تاريخ الامر",
+  "LUGGAGE_DETAILS":"تفاصيل الشحنة",
+  "CUSTOMER_NAME_AR":"اسم العميل عربي",
+  "CUSTOMER_NAME_EN":"Customer Name (en)",
+  "CUSTOMER_PHONE":"رقم هاتف العميل",
+  "START_JOURNEY":"توكلنا على الله",
+  "DRIVER_START_JOURNEY":"السائق بدأ بالتحرك اليك",
+  "DRIVER_START_JOURNEY_DETAILS":"هو فى الطريق إليك الان.يمكنك متابعته على الخارطة",
+  "END_JOURNEY":"إنهاء الرحلة",
 
   "ERROR_CANNOT_POST_REQUEST":"خطأ: لم بتمكن النظام من تمرير طلبك"
   ,"REQUEST_POSTED":"تم ارسال طلبك لكل شركات وسائقى النقل .سيتم تنبيهك حال قبول طلبك."

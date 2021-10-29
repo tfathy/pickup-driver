@@ -43,7 +43,7 @@ export class FcmService {
     const headerInfo = new HttpHeaders({
       Authorization: `${environment.cloudMessageApplicationId}`,
     });
-
+    console.log('in send notification service msg=',msg);
     return this.http.post<any>(`${this.url}`, msg, {
       headers: headerInfo,
     });
@@ -101,8 +101,16 @@ export class FcmService {
       async (notification: PushNotificationSchema) => {
       //  this.showAlert('Push received: ' + JSON.stringify(notification));
         // fires when notification received
-        console.log('notification=',notification);
+        console.log('pushNotificationReceived fired',notification);
+        const obj = JSON.parse( notification.data.info);
+
+        this.showAlert('You have got a new request '+obj.ordStatus);
        await  this.readDataService.reloadOrders();
+       if(obj.ordStatus==='REQUEST'){
+        this.router.navigate(['/','tabs','requests']);
+       }else if(obj.ordStatus==='CUSTOMER_ACCEPT'){
+        this.router.navigate(['/','tabs','requests','journy',obj.id]);
+       }
       }
     );
     // the following listner fires when the user has clicked on the notification
@@ -113,9 +121,17 @@ export class FcmService {
         this.showAlert(
           'Action performed: ' + JSON.stringify(notification.notification)
         );
-        if (data.detailsId) {
-          // this.router.navigateByUrl(`/home/${data.detailsId}`);
-          this.showAlert(data);
+        console.log('pushNotificationActionPerformed fired=',notification);
+        const obj = JSON.parse( notification.notification.data.info);
+        console.log('message contains this object ',obj);
+        if(obj.ordStatus==='CUSTOMER_ACCEPT'){
+          this.router.navigate(['/','tabs','requests','journy',obj.id]);
+        }else{
+          if (data.detailsId) {
+                this.router.navigateByUrl(`/home/${data.detailsId}`);
+            //this.showAlert(data);
+          }
+
         }
       }
     );

@@ -68,7 +68,6 @@ export class OpenRequestDetailsComponent implements OnInit {
           moreInfo,
           this.pushMessageToken
         );
-        console.log('fcmGoogleNotification=', fcmGoogleNotification);
         this.fcmService.sendNotification(fcmGoogleNotification).subscribe(
           (notificationResponse) => {
             console.log(notificationResponse);

@@ -16,7 +16,12 @@ const routes: Routes = [
   {
     path: 'request-detail/:id',
     loadChildren: () => import('./request-detail/request-detail.module').then( m => m.RequestDetailPageModule)
+  },
+  {
+    path: 'journy/:id',
+    loadChildren: () => import('./journy/journy.module').then( m => m.JournyPageModule)
   }
+
 ];
 
 @NgModule({

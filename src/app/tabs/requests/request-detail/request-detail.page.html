@@ -13,14 +13,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="model? model.customer.phoneNumber:false">
-    <ion-fab-button color="light" >
-      <a href="tel:"{{ model.customer.phoneNumber}} color="primary">
-        {{"CALL"|translate}}
-      </a>
-
-    </ion-fab-button>
-  </ion-fab>
   <ion-grid *ngIf="model">
     <ion-row>
       <ion-col>
