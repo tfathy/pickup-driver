@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -7,6 +7,7 @@ import { SlOrderService } from 'src/app/services/sl-order.service';
 import { DriverAuthToken, readStorage } from 'src/app/shared/common-utils';
 import { SlOrderModel } from 'src/app/shared/models/sl-order-model';
 import { UserService } from 'src/app/services/user.service';
+import { ClearWatchOptions, Geolocation } from '@capacitor/geolocation';
 import {
   NotificationMoreInfo,
   PushNotificationMessage,
@@ -24,7 +25,13 @@ export class JournyPage implements OnInit {
   moreInfoText: string;
   msgText: string;
   driverToken: DriverAuthToken;
+
+  public lat: any;
+  public lng: any;
+  public wait: Promise<string>;
+
   constructor(
+    public ngZone: NgZone,
     private route: ActivatedRoute,
     private router: Router,
     private loadinCtrl: LoadingController,
@@ -71,8 +78,8 @@ export class JournyPage implements OnInit {
       });
   }
   cancelJourney() {}
-  endJoureny(){
-
+  endJoureny() {
+  this.stopTrack();
   }
   startJoury() {
     this.loadinCtrl
@@ -109,6 +116,7 @@ export class JournyPage implements OnInit {
                   )
                   .subscribe((orderChangeRes) => {
                     console.log('updated order=', orderChangeRes);
+                    this.watchTrack();
                     loadingElmnt.dismiss();
                   });
               });
@@ -116,7 +124,26 @@ export class JournyPage implements OnInit {
       });
   }
 
-  back(){
-    this.router.navigate(['/','tabs','requests']);
+   watchTrack() {
+     // insert record in sys_order_location table status =start
+    this.wait = Geolocation.watchPosition({}, (position, err) => {
+      this.ngZone.run(() => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+        console.log('location changed===> ','lat: '+this.lat+' lng:'+this.lng);
+      });
+    });
+  }
+
+  async stopTrack() {
+    //insert record in sys_order_location table status =end
+    console.log('this.wait=',this.wait);
+    const opt: ClearWatchOptions = {id: await this.wait};
+    Geolocation.clearWatch(opt).then(result=>{
+      console.log('result of clear is',result);
+    });
+  }
+  back() {
+    this.router.navigate(['/', 'tabs', 'requests']);
   }
 }

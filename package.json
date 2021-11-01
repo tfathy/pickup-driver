@@ -23,7 +23,7 @@
     "@capacitor/android": "^3.2.0",
     "@capacitor/app": "1.0.2",
     "@capacitor/core": "3.2.0",
-    "@capacitor/geolocation": "^1.1.0",
+    "@capacitor/geolocation": "^1.1.2",
     "@capacitor/keyboard": "1.0.2",
     "@capacitor/network": "^1.0.2",
     "@capacitor/push-notifications": "^1.0.4",
