@@ -74,6 +74,8 @@
   "DRIVER_START_JOURNEY":"Driver on his way to you",
   "DRIVER_START_JOURNEY_DETAILS":"The driver is on hs way to you.tap to tack him on the map",
   "END_JOURNEY":"End Journey",
+  "DRIVER_END_JOURNEY_DETAILS":"The Mission Haas been ended by the driver",
+  "DRIVER_END_JOURNEY":"Mission Ends",
 
   "ERROR_CANNOT_POST_REQUEST": "Error: Cannot post the request",
   "REQUEST_POSTED": "Your request is sent to all avaliable vehicles.You will get a notification as sson as the request is picked.Thank you",

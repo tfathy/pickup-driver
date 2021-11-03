@@ -69,6 +69,7 @@ export class LoginPage implements OnInit {
           .subscribe(
             () => {
               console.log('**********authLogin 1**************');
+              loadingElmnt.present();
               readStorage('DriverAuthData').then((storageData) => {
                 this.token = storageData;
                 console.log('this.token.userId', this.token.userId);

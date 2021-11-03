@@ -10,7 +10,7 @@ import { LoginInfoModel } from '../shared/models/login-info-model';
   providedIn: 'root',
 })
 export class LoginInfoService {
-  url = 'driver-app/driver/user-login-info';
+  url = 'driver-app';
   driverSecurityUrl = 'driver-security-app/driver-auth/user-info';
   constructor(private http: HttpClient) {}
 
@@ -21,13 +21,30 @@ export class LoginInfoService {
     const headerInfo = new HttpHeaders({
       Authorization: token,
     });
-    console.log('loginInfo',loginInfo);
+    console.log('loginInfo', loginInfo);
     return this.http.post<LoginInfoModel>(
-      `${environment.backEndApiRoot}/${this.url}`,
+      `${environment.backEndApiRoot}/${this.url}/driver/user-login-info`,
       loginInfo,
       {
         headers: headerInfo,
       }
+    );
+  }
+
+  updateUserLoginInfoStatus(
+    token: string,
+    userId,
+    oldStatus,
+    newStatus
+  ): Observable<boolean> {
+    ///driver/user-login-info/status/{userId}/{oldStatus}/{newStatus} to update the status  in user_login_info table
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.put<boolean>(
+      `${environment.backEndApiRoot}/${this.url}/driver/user-login-info/status/${userId}/${oldStatus}/${newStatus}`,
+      null,
+      { headers: headerInfo }
     );
   }
 

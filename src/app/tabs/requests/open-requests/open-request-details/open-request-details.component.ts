@@ -61,7 +61,7 @@ export class OpenRequestDetailsComponent implements OnInit {
         msg = new PushNotificationMessage(
           this.messageTitle,
           this.messageBody,
-          'https://owner.pickup-sa.net/assets/icon/vcl-green.png'
+          ''
         );
         fcmGoogleNotification = new FcmGoogleNotification(
           msg,
@@ -76,6 +76,7 @@ export class OpenRequestDetailsComponent implements OnInit {
           },
           (err) => {
             console.log(err);
+            loadinElmnt.dismiss();
           }
         );
       });
