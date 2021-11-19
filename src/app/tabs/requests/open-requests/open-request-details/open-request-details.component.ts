@@ -43,6 +43,7 @@ export class OpenRequestDetailsComponent implements OnInit {
     if(!this.payload.estimatedCost){
       return;
     }
+
     this.translateService
     .get('NOTIFICATION_2CUSTOMER_ACCEPT_BODY')
     .subscribe((retValue) => {
@@ -57,6 +58,8 @@ export class OpenRequestDetailsComponent implements OnInit {
       })
       .then((loadinElmnt) => {
         loadinElmnt.present();
+        this.payload.ordStatus='PROPOSAL';
+        console.log('payload=',this.payload);
         const moreInfo = new NotificationMoreInfo(this.payload);
         msg = new PushNotificationMessage(
           this.messageTitle,
@@ -70,7 +73,7 @@ export class OpenRequestDetailsComponent implements OnInit {
         );
         this.fcmService.sendNotification(fcmGoogleNotification).subscribe(
           (notificationResponse) => {
-            console.log(notificationResponse);
+            console.log('notificationResponse',notificationResponse);
             loadinElmnt.dismiss();
             this.modalCtrl.dismiss({ accepted: true });
           },
